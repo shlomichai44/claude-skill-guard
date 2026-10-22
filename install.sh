@@ -5,7 +5,9 @@
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-python3 -I "$DIR/skill_guard.py" setup
+# A failed tool install must not stop the hooks from being installed: the
+# session-start hook retries it and reports what is missing.
+python3 -I "$DIR/skill_guard.py" setup || echo "skill-guard: scanner setup incomplete; the session-start hook will retry"
 
 mkdir -p "$HOME/.local/bin"
 printf '#!/bin/bash\nexec python3 -I "%s/skill_guard.py" "$@"\n' "$DIR" > "$HOME/.local/bin/skill-guard"

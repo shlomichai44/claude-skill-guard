@@ -14,14 +14,15 @@
 2. מוסיפים לשדה **Setup script** את השורות האלה:
 
    ```bash
-   if [ -d "$HOME/.skill-guard/.git" ]; then git -C "$HOME/.skill-guard" pull -q --ff-only
+   { if [ -d "$HOME/.skill-guard/.git" ]; then git -C "$HOME/.skill-guard" pull -q --ff-only
    else git clone -q --depth 1 https://github.com/shlomichai44/claude-skill-guard "$HOME/.skill-guard"; fi
-   "$HOME/.skill-guard/install.sh"
+   "$HOME/.skill-guard/install.sh"; } || echo "skill-guard setup failed; session continues without it"
    ```
 
 3. שומרים. מעכשיו כל סשן חדש מתקין את הכלים ואת ההוקים, ומושך את רשימת המאושרים העדכנית.
 
-הריפו פרטי. אם השכפול נכשל בסקריפט ההתקנה בגלל הרשאות, אפשר להפוך את הריפו לציבורי, כי אין בו סודות.
+- הסוגריים המסולסלים ו-`|| echo` בסוף חשובים. בלעדיהם, תקלה בהתקנה מונעת מכל סשן חדש לעלות.
+- הריפו צריך להיות ציבורי. סקריפט ההתקנה רץ עם גישה רק לריפו שנבחר לסשן, ולכן ריפו פרטי אחר לא ישוכפל. אין בריפו הזה סודות.
 
 ### מחשב מקומי
 
