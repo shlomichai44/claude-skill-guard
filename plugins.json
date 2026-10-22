@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    {
+      "plugin": "ffmpeg-llm@rendi-official",
+      "marketplace": "rendi-api/ffmpeg-llm",
+      "scanned_on": "2026-10-22",
+      "scan": "PASS: SkillSpector score 0 SAFE; instructions only, empty hooks (commit 4ac6b8b)",
+      "note": "Writes FFmpeg commands from plain-language requests. Installed at the user's request."
+    }
+  ]
+}

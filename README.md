@@ -63,6 +63,17 @@
 
    Claude מריץ `approve` רק אחרי אישור מפורש שלך בצ'אט. בשביל ה-push, הסשן צריך הרשאת כתיבה לריפו הזה.
 
+## פלאגינים מותקנים
+
+פלאגין שעבר סריקה ונכנס לקובץ `plugins.json` מותקן אוטומטית בכל סשן חדש. סקריפט ההתקנה מריץ את `skill-guard install-plugins`, ובתחילת הסשן נסרק גם העותק שהותקן בפועל.
+
+כדי להוסיף פלאגין לרשימה:
+
+1. סורקים: `skill-guard scan <owner/repo>`.
+2. אם התוצאה PASS, או REVIEW שאישרת בצ'אט, Claude מוסיף ל-`plugins.json` רשומה עם השדות `plugin` (בפורמט `name@marketplace`) ו-`marketplace` (בפורמט `owner/repo`), ועושה commit ו-push.
+
+כרגע ברשימה: **ffmpeg-llm** (של Rendi), שכותב פקודות FFmpeg לפי בקשה במילים.
+
 ## עדכונים
 
 - כל אישור קשור לתוכן המדויק של הסקיל, לפי טביעת אצבע (hash). כשסקיל מתעדכן, הוא נסרק שוב.
@@ -84,7 +95,8 @@
 
 ## הקבצים
 
-- `skill_guard.py`: הסקריפט (הפקודות setup, ‏scan, ‏check, ‏approve, ‏install-hooks, וההוקים). משתמש רק בספרייה הסטנדרטית של Python.
+- `skill_guard.py`: הסקריפט (הפקודות setup, ‏scan, ‏check, ‏approve, ‏install-hooks, ‏install-plugins, וההוקים). משתמש רק בספרייה הסטנדרטית של Python.
+- `plugins.json`: פלאגינים שעברו סריקה ומותקנים בכל סשן.
 - `install.sh`: ההתקנה.
 - `approved.json`: הסקילים שנבדקו ואושרו. לכל סקיל נשמרים השם, טביעת אצבע של התוכן והממצאים שאושרו.
 - `trust/nvidia-agent-root.pem`: תעודת השורש של NVIDIA.

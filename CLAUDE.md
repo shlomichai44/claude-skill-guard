@@ -9,3 +9,5 @@ is installed or used in Claude Code. Procedure and setup: `README.md` (Hebrew).
   Check a new commit on github.com/NVIDIA/skillspector before moving the pin.
 - `approved.json` changes only after the user approves in chat; commit each
   approval with the reason in the note.
+- `plugins.json` lists plugins installed in every session; add one only after
+  `skill-guard scan` passes (or the user approves a REVIEW result in chat).

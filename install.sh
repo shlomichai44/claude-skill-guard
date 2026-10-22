@@ -14,4 +14,5 @@ printf '#!/bin/bash\nexec python3 -I "%s/skill_guard.py" "$@"\n' "$DIR" > "$HOME
 chmod +x "$HOME/.local/bin/skill-guard"
 
 python3 -I "$DIR/skill_guard.py" install-hooks
+python3 -I "$DIR/skill_guard.py" install-plugins || echo "skill-guard: some listed plugins were not installed"
 echo "skill-guard installed from $DIR"

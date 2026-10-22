@@ -4,6 +4,7 @@ before it is installed or used. The procedure is in README.md.
 
   setup                            install the pinned scanner tools (uv)
   install-hooks                    add the hooks to ~/.claude/settings.json
+  install-plugins                  install the plugins listed in plugins.json
   scan SOURCE [--skill NAME]...    scan before installing; SOURCE is a local
        [--label TEXT]...           path, a git URL or a GitHub owner/repo
   check                            scan installed skills and plugins that are
@@ -35,6 +36,7 @@ HERE = Path(__file__).resolve().parent
 POLICY = "the skill-guard README (github.com/shlomichai44/claude-skill-guard)"
 CLI = "skill-guard"
 APPROVED_FILE = HERE / "approved.json"
+PLUGINS_FILE = HERE / "plugins.json"
 NVIDIA_ROOT_CERT = HERE / "trust" / "nvidia-agent-root.pem"
 STATE_DIR = Path(os.environ.get("SKILL_GUARD_STATE") or Path.home() / ".cache" / "skill-guard")
 SCANS_FILE = STATE_DIR / "scans.json"
@@ -721,6 +723,37 @@ def cmd_install_hooks(_args) -> int:
     return 0
 
 
+# --------------------------------------------------------- install plugins
+
+def cmd_install_plugins(_args) -> int:
+    """Install the plugins in plugins.json. Each one passed a scan before it was listed;
+    the session-start check scans the installed copy again."""
+    entries = load_json(PLUGINS_FILE, {}).get("plugins", [])
+    if not entries:
+        print("no plugins listed")
+        return 0
+    claude = tool("claude") or ("/opt/claude-code/bin/claude" if Path("/opt/claude-code/bin/claude").exists() else None)
+    if not claude:
+        print("skill-guard: the claude command is missing, so listed plugins were not installed")
+        return 0
+    failed = 0
+    for e in entries:
+        plugin, marketplace = e.get("plugin", ""), e.get("marketplace", "")
+        if not plugin or not marketplace:
+            continue
+        steps = [[claude, "plugin", "marketplace", "add", marketplace], [claude, "plugin", "install", plugin]]
+        for step in steps:
+            r = subprocess.run(step, capture_output=True, text=True, timeout=300, check=False)
+            out = (r.stdout or "") + (r.stderr or "")
+            if r.returncode != 0 and "already" not in out.lower():
+                print(f"skill-guard: {' '.join(step[1:])} failed: {tail(out, 2)}")
+                failed += 1
+                break
+        else:
+            print(f"plugin ready: {plugin}")
+    return 1 if failed else 0
+
+
 # -------------------------------------------------------------------- main
 
 def main(argv: list[str] | None = None) -> int:
@@ -741,6 +774,7 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("session-start")
     sub.add_parser("gate")
     sub.add_parser("install-hooks")
+    sub.add_parser("install-plugins")
     args = ap.parse_args(argv)
     try:
         if args.cmd == "setup":
@@ -751,7 +785,7 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if problems else 0
         return {"scan": cmd_scan, "check": cmd_check, "approve": cmd_approve,
                 "session-start": cmd_session_start, "gate": cmd_gate,
-                "install-hooks": cmd_install_hooks}[args.cmd](args)
+                "install-hooks": cmd_install_hooks, "install-plugins": cmd_install_plugins}[args.cmd](args)
     except GuardError as exc:
         print(f"skill-guard: {exc}", file=sys.stderr)
         return 2
