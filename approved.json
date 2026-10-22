@@ -153,6 +153,67 @@
       "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
     },
     {
+      "name": "remotion-best-practices",
+      "kind": "skill",
+      "sha256": "37add2bc64ea926081677a95780fbac2086f37984a6528999041f2497126c4ed",
+      "score": 100,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "29760d0606bf9fc904b9abe06f875091503ccb110be9d547b4558ecf6b1ef898",
+        "2a644ae57a82432a9c11f5d754db924983a683a84fee66cb1a104939410d39e6",
+        "2b5664f2a936abba4141331e7b3e83205cce617d2cea9af83aa306db07500782",
+        "3c5a94626ef5fb3a1709e4d19e2aa136fcf6fcb69736c79bedb767c844f5cbcc",
+        "63e133b1944bf0e8419ca4e3cb7ff3157cb42dfdc2a2e775b28a71cd3e174a6d",
+        "7d24985d97589da3e9c0305e831b6b61dfcec35ab51895c8f6e902c4865f7c23",
+        "903a9f18e7222d4c1e39fcf76dec31bef3fd46b6332f4bc5bc823999d287548b",
+        "9ed07d810f8698665ebeebd3b4be32a84b3babe76a3ecd215e5f6c3d16556fd7",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env.",
+        "eb979cee8fa829d87abea70462d70c1710d78b0a53296a1caf92976a530d0f28"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Approved by the user in chat on 2026-10-22 (Remotion, remotion-dev/skills@6c67adc). Claude checked every HIGH finding: 'access token' is the Mapbox guide reading the user's own public token from REMOTION_MAPBOX_TOKEN; 'incomplete analysis' files were reviewed by hand (docs and examples only; no hidden characters, no pipe-to-shell, no instruction overrides; network only to Remotion, map and TTS services the user chooses)."
+    },
+    {
+      "name": "remotion-maps",
+      "kind": "skill",
+      "sha256": "95914104c172cf3d42fd3863ee7e95ca2c3ca09adc153b233dd0b7c2a2c9a60a",
+      "score": 74,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "903a9f18e7222d4c1e39fcf76dec31bef3fd46b6332f4bc5bc823999d287548b",
+        "9ed07d810f8698665ebeebd3b4be32a84b3babe76a3ecd215e5f6c3d16556fd7",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env.",
+        "c5855beda4927a84a8c13b27b69f402c54efff18a16fe80304233f88fbdbebaa"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Approved by the user in chat on 2026-10-22 (Remotion, remotion-dev/skills@6c67adc). Claude checked every HIGH finding: 'access token' is the Mapbox guide reading the user's own public token from REMOTION_MAPBOX_TOKEN; 'incomplete analysis' files were reviewed by hand (docs and examples only; no hidden characters, no pipe-to-shell, no instruction overrides; network only to Remotion, map and TTS services the user chooses)."
+    },
+    {
+      "name": "remotion-markup",
+      "kind": "skill",
+      "sha256": "7c2ceb5645bd34ff8b7bdd07e63b940bd1515058d63cb1001b4845320afdf27e",
+      "score": 100,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "0965848550791a1820caf7d8c808d7bfe0c5bbd7ea4a3694e019a40922c6fcd0",
+        "29760d0606bf9fc904b9abe06f875091503ccb110be9d547b4558ecf6b1ef898",
+        "63e133b1944bf0e8419ca4e3cb7ff3157cb42dfdc2a2e775b28a71cd3e174a6d",
+        "7d24985d97589da3e9c0305e831b6b61dfcec35ab51895c8f6e902c4865f7c23",
+        "835b085df6894043dd628e448213e57d0e561bab6c871c31ed432d1c14ae606a",
+        "903a9f18e7222d4c1e39fcf76dec31bef3fd46b6332f4bc5bc823999d287548b",
+        "9ed07d810f8698665ebeebd3b4be32a84b3babe76a3ecd215e5f6c3d16556fd7",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env.",
+        "a03609664a1c991f4e0a038dfd213752294da56a4df323f58cbdd23dc0c9388b",
+        "d7d3949e74f81fdb36e024ce532b194849f6a6998a7279d7de1259264736ab8f",
+        "f1a285a26361143a0c89f4070d34fbb6a4720fe324c9826e501d2a6aade22e91"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Approved by the user in chat on 2026-10-22 (Remotion, remotion-dev/skills@6c67adc). Claude checked every HIGH finding: 'access token' is the Mapbox guide reading the user's own public token from REMOTION_MAPBOX_TOKEN; 'incomplete analysis' files were reviewed by hand (docs and examples only; no hidden characters, no pipe-to-shell, no instruction overrides; network only to Remotion, map and TTS services the user chooses)."
+    },
+    {
       "name": "skill-creator",
       "kind": "skill",
       "sha256": "107a3ea6f9d003c0ee01c38f2fbca568ef1b580e3be6db91d4b490508b7ed05b",
@@ -207,5 +268,5 @@
       "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
     }
   ],
-  "policy": "docs/SKILL-SCAN.md"
+  "policy": "README.md"
 }

@@ -63,16 +63,22 @@
 
    Claude מריץ `approve` רק אחרי אישור מפורש שלך בצ'אט. בשביל ה-push, הסשן צריך הרשאת כתיבה לריפו הזה.
 
-## פלאגינים מותקנים
+## פלאגינים וסקילים מותקנים
 
-פלאגין שעבר סריקה ונכנס לקובץ `plugins.json` מותקן אוטומטית בכל סשן חדש. סקריפט ההתקנה מריץ את `skill-guard install-plugins`, ובתחילת הסשן נסרק גם העותק שהותקן בפועל.
+מה שרשום בקובץ `plugins.json` מותקן אוטומטית בכל סשן חדש, דרך `skill-guard install-plugins`. בתחילת הסשן נסרק גם העותק שהותקן בפועל.
 
-כדי להוסיף פלאגין לרשימה:
+- **פלאגינים** (`plugins`): לכל רשומה יש `plugin` בפורמט `name@marketplace`, ו-`marketplace` בפורמט `owner/repo`.
+- **סקילים** (`skills`): לכל רשומה יש `source` בפורמט `owner/repo`, ‏`commit` (מזהה commit מלא), ‏`path` ו-`names`. ההתקנה נעולה ל-commit שנסרק, ולכן מה שמותקן הוא בדיוק מה שנבדק. כדי לעדכן, סורקים commit חדש ומחליפים את המזהה.
 
-1. סורקים: `skill-guard scan <owner/repo>`.
-2. אם התוצאה PASS, או REVIEW שאישרת בצ'אט, Claude מוסיף ל-`plugins.json` רשומה עם השדות `plugin` (בפורמט `name@marketplace`) ו-`marketplace` (בפורמט `owner/repo`), ועושה commit ו-push.
+מוסיפים לרשימה רק אחרי סריקה שעברה, או אחרי שאישרת בצ'אט תוצאת REVIEW או BLOCKED.
 
-כרגע ברשימה: **ffmpeg-llm** (של Rendi), שכותב פקודות FFmpeg לפי בקשה במילים.
+כרגע ברשימה:
+- **ffmpeg-llm** (של Rendi): כותב פקודות FFmpeg לפי בקשה במילים.
+- **Remotion**, 12 הסקילים הרשמיים (`remotion-dev/skills@6c67adc`): יצירת סרטונים מקוד React. שלושה מהם (best-practices, ‏maps, ‏markup) קיבלו BLOCKED, נבדקו כהתרעות שווא ואושרו על ידך.
+
+## הערות לכל סשן
+
+`skill-guard install-notes` מכניס את התוכן של `notes.md` לקובץ `~/.claude/CLAUDE.md`, כך ש-Claude קורא אותו בכל סשן. התוכן נכנס כבלוק מסומן, ושאר הקובץ לא משתנה. כרגע ההערה מסבירה איך מייצרים וידאו עם Remotion בענן: הרשת חוסמת את ההורדה של הדפדפן ש-Remotion צריך, ולכן משתמשים ב-Chromium שכבר מותקן.
 
 ## עדכונים
 
@@ -95,8 +101,9 @@
 
 ## הקבצים
 
-- `skill_guard.py`: הסקריפט (הפקודות setup, ‏scan, ‏check, ‏approve, ‏install-hooks, ‏install-plugins, וההוקים). משתמש רק בספרייה הסטנדרטית של Python.
-- `plugins.json`: פלאגינים שעברו סריקה ומותקנים בכל סשן.
+- `skill_guard.py`: הסקריפט (הפקודות setup, ‏scan, ‏check, ‏approve, ‏install-hooks, ‏install-plugins, ‏install-notes, וההוקים). משתמש רק בספרייה הסטנדרטית של Python.
+- `plugins.json`: פלאגינים וסקילים שעברו סריקה ומותקנים בכל סשן.
+- `notes.md`: הערות שנכנסות ל-`~/.claude/CLAUDE.md` בכל סשן.
 - `install.sh`: ההתקנה.
 - `approved.json`: הסקילים שנבדקו ואושרו. לכל סקיל נשמרים השם, טביעת אצבע של התוכן והממצאים שאושרו.
 - `trust/nvidia-agent-root.pem`: תעודת השורש של NVIDIA.

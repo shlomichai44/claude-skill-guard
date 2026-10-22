@@ -7,5 +7,29 @@
       "scan": "PASS: SkillSpector score 0 SAFE; instructions only, empty hooks (commit 4ac6b8b)",
       "note": "Writes FFmpeg commands from plain-language requests. Installed at the user's request."
     }
+  ],
+  "skills": [
+    {
+      "source": "remotion-dev/skills",
+      "commit": "6c67adcd9cdbe6eb84d76342da89b225f9161cb2",
+      "path": "skills",
+      "names": [
+        "remotion-best-practices",
+        "remotion-captions",
+        "remotion-create",
+        "remotion-docs",
+        "remotion-interactivity",
+        "remotion-maps",
+        "remotion-markup",
+        "remotion-multimedia",
+        "remotion-render",
+        "remotion-saas",
+        "remotion-studio",
+        "remotion-upgrade"
+      ],
+      "scanned_on": "2026-10-22",
+      "scan": "9 PASS; remotion-best-practices, remotion-maps and remotion-markup BLOCKED, reviewed as false positives and approved by the user",
+      "note": "Official Remotion skills for making videos with React. Installed at the user's request."
+    }
   ]
 }

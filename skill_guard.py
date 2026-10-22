@@ -4,7 +4,8 @@ before it is installed or used. The procedure is in README.md.
 
   setup                            install the pinned scanner tools (uv)
   install-hooks                    add the hooks to ~/.claude/settings.json
-  install-plugins                  install the plugins listed in plugins.json
+  install-plugins                  install the plugins and skills listed in plugins.json
+  install-notes                    put notes.md into ~/.claude/CLAUDE.md for every session
   scan SOURCE [--skill NAME]...    scan before installing; SOURCE is a local
        [--label TEXT]...           path, a git URL or a GitHub owner/repo
   check                            scan installed skills and plugins that are
@@ -37,6 +38,9 @@ POLICY = "the skill-guard README (github.com/shlomichai44/claude-skill-guard)"
 CLI = "skill-guard"
 APPROVED_FILE = HERE / "approved.json"
 PLUGINS_FILE = HERE / "plugins.json"
+NOTES_FILE = HERE / "notes.md"
+NOTES_BEGIN = "<!-- skill-guard notes: begin (managed by claude-skill-guard/install.sh) -->"
+NOTES_END = "<!-- skill-guard notes: end -->"
 NVIDIA_ROOT_CERT = HERE / "trust" / "nvidia-agent-root.pem"
 STATE_DIR = Path(os.environ.get("SKILL_GUARD_STATE") or Path.home() / ".cache" / "skill-guard")
 SCANS_FILE = STATE_DIR / "scans.json"
@@ -725,13 +729,62 @@ def cmd_install_hooks(_args) -> int:
 
 # --------------------------------------------------------- install plugins
 
+def install_skill_sets(entries: list[dict]) -> int:
+    """Copy listed skills from a git source, pinned to the commit that was scanned."""
+    failed = 0
+    dest_root = Path.home() / ".claude" / "skills"
+    for e in entries:
+        source, commit = e.get("source", ""), e.get("commit", "")
+        sub, names = e.get("path", "."), e.get("names") or []
+        if not source or not re.fullmatch(r"[0-9a-f]{40}", commit):
+            print(f"skill-guard: skipped {source or '?'}: it needs a source and a full commit hash")
+            failed += 1
+            continue
+        url = f"https://github.com/{source}" if GITHUB_SHORT.match(source) else source
+        work = STATE_DIR / "skillsets" / hashlib.sha256(f"{url}@{commit}".encode()).hexdigest()[:16]
+        if not (work / ".git").is_dir():
+            shutil.rmtree(work, ignore_errors=True)
+            work.mkdir(parents=True)
+            env = {**os.environ, "GIT_LFS_SKIP_SMUDGE": "1", "GIT_TERMINAL_PROMPT": "0"}
+            steps = [["git", "init", "-q", str(work)],
+                     ["git", "-C", str(work), "fetch", "-q", "--depth", "1", url, commit],
+                     ["git", "-C", str(work), "checkout", "-q", "FETCH_HEAD"]]
+            ok = True
+            for step in steps:
+                r = subprocess.run(step, capture_output=True, text=True, timeout=600, env=env, check=False)
+                if r.returncode != 0:
+                    print(f"skill-guard: could not fetch {url}@{commit[:7]}: {tail(r.stderr, 2)}")
+                    shutil.rmtree(work, ignore_errors=True)
+                    ok = False
+                    break
+            if not ok:
+                failed += 1
+                continue
+        for name in names:
+            src = work / sub / name
+            if not (src / "SKILL.md").is_file():
+                print(f"skill-guard: {name} is not in {source}@{commit[:7]}")
+                failed += 1
+                continue
+            dst = dest_root / name
+            if dst.is_dir() and dir_hash(dst) == dir_hash(src):
+                continue
+            shutil.rmtree(dst, ignore_errors=True)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(src, dst, symlinks=True, ignore=shutil.ignore_patterns(".git"))
+            print(f"skill ready: {name}")
+    return failed
+
+
 def cmd_install_plugins(_args) -> int:
-    """Install the plugins in plugins.json. Each one passed a scan before it was listed;
-    the session-start check scans the installed copy again."""
-    entries = load_json(PLUGINS_FILE, {}).get("plugins", [])
+    """Install the plugins and skills in plugins.json. Each one passed a scan (or the user
+    approved its review) before it was listed; the session-start check scans the installed
+    copy again."""
+    listed = load_json(PLUGINS_FILE, {})
+    entries = listed.get("plugins", [])
+    skill_failures = install_skill_sets(listed.get("skills", []))
     if not entries:
-        print("no plugins listed")
-        return 0
+        return 1 if skill_failures else 0
     claude = tool("claude") or ("/opt/claude-code/bin/claude" if Path("/opt/claude-code/bin/claude").exists() else None)
     if not claude:
         print("skill-guard: the claude command is missing, so listed plugins were not installed")
@@ -751,7 +804,25 @@ def cmd_install_plugins(_args) -> int:
                 break
         else:
             print(f"plugin ready: {plugin}")
-    return 1 if failed else 0
+    return 1 if failed or skill_failures else 0
+
+
+# ------------------------------------------------------------ install notes
+
+def cmd_install_notes(_args) -> int:
+    """Keep notes.md as a managed block in the user's CLAUDE.md, leaving the rest alone."""
+    target = Path(os.environ.get("CLAUDE_CONFIG_DIR") or Path.home() / ".claude") / "CLAUDE.md"
+    notes = NOTES_FILE.read_text(encoding="utf-8").strip() if NOTES_FILE.is_file() else ""
+    current = target.read_text(encoding="utf-8") if target.is_file() else ""
+    pattern = re.compile(re.escape(NOTES_BEGIN) + r".*?" + re.escape(NOTES_END) + r"\n?", re.S)
+    rest = pattern.sub("", current).rstrip("\n")
+    block = f"{NOTES_BEGIN}\n{notes}\n{NOTES_END}\n" if notes else ""
+    updated = (rest + "\n\n" + block) if rest and block else (rest + "\n" if rest else block)
+    if updated != current:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(updated, encoding="utf-8")
+    print(f"notes {'written to' if block else 'removed from'} {target}")
+    return 0
 
 
 # -------------------------------------------------------------------- main
@@ -775,6 +846,7 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("gate")
     sub.add_parser("install-hooks")
     sub.add_parser("install-plugins")
+    sub.add_parser("install-notes")
     args = ap.parse_args(argv)
     try:
         if args.cmd == "setup":
@@ -785,7 +857,8 @@ def main(argv: list[str] | None = None) -> int:
             return 1 if problems else 0
         return {"scan": cmd_scan, "check": cmd_check, "approve": cmd_approve,
                 "session-start": cmd_session_start, "gate": cmd_gate,
-                "install-hooks": cmd_install_hooks, "install-plugins": cmd_install_plugins}[args.cmd](args)
+                "install-hooks": cmd_install_hooks, "install-plugins": cmd_install_plugins,
+                "install-notes": cmd_install_notes}[args.cmd](args)
     except GuardError as exc:
         print(f"skill-guard: {exc}", file=sys.stderr)
         return 2

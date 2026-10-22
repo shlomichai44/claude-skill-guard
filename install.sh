@@ -15,4 +15,5 @@ chmod +x "$HOME/.local/bin/skill-guard"
 
 python3 -I "$DIR/skill_guard.py" install-hooks
 python3 -I "$DIR/skill_guard.py" install-plugins || echo "skill-guard: some listed plugins were not installed"
+python3 -I "$DIR/skill_guard.py" install-notes || echo "skill-guard: notes were not written"
 echo "skill-guard installed from $DIR"
