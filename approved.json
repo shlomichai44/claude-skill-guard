@@ -1,0 +1,211 @@
+{
+  "entries": [
+    {
+      "name": "built-in-browser",
+      "kind": "skill",
+      "sha256": "0c99eb40d84988fbd0a69a330b7f35aa7019fe56da133a762fd6c9c8192f8f14",
+      "score": 0,
+      "recommendation": "SAFE",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "chrome-browser",
+      "kind": "skill",
+      "sha256": "6056843a24bdc8172d4aa0380d082edfac978a36a031bdad7553c3c31d309b0a",
+      "score": 0,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "computer-use",
+      "kind": "skill",
+      "sha256": "fa6b8ac04d6b1b6c8caec07d7aa3b11a263243f5b700447564b73e32b2edd5b2",
+      "score": 0,
+      "recommendation": "SAFE",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "deep-research",
+      "kind": "skill",
+      "sha256": "4f0350d3b49138d2b49524d9c0ff84d537cbfe1d25e9b42d19f0d38a2c29419a",
+      "score": 0,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "docs",
+      "kind": "skill",
+      "sha256": "93a898732535917c5bf2c4e47c7cceef68fdb64e478e1de3de6e910143944192",
+      "score": 0,
+      "recommendation": "SAFE",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "docx",
+      "kind": "skill",
+      "sha256": "d3f534689bcad1f16004f4d4b61beec7baace8dc83eaee3992d950e95c00604d",
+      "score": 82,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "23b3d476caf63d859a2a3bade37548b7986b00b138b45df1b6a49782c4e2984b",
+        "5281710ff6fb774d41d1c9553d0e1a8869da0e882336cb051e86744f3ec8ec46",
+        "8be62aeb7d7a6a3a3f813ca694ed8110ec9f4098cfa75eefbe4f02a442a2dcd0",
+        "9e499c1ff35fcd6a56554a9e39509a6951e3611b22095e5e835052c86bbe9cf7",
+        "9f508dc057dbec1414aa66ca081dea0618989f867eba4052d721b4a1bcf4f75a",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env, file_read, file_write, network, shell.",
+        "c1423973b70fcd79662927fabca7dd03de278637f95aa22b8c3bb5d48f7d7fe6",
+        "c636428f0ba4abf12b869ba02d0870be84490743b3f02fd60b03b104fc39f227",
+        "d822a2429f36853756aaebead0a9673e9020c8fdc2d7888111b2f9090263d144",
+        "da42bed49ba667f4edac8a3628fa28e5cc6bbc20fc757fb7d1ddbddd9a531ec0"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "google-workspace",
+      "kind": "skill",
+      "sha256": "a5ac6ad42cbdda8c2569cc8033d19af345425a3dc1acc4d0a2699ebe69a5cbb5",
+      "score": 27,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [
+        "546364a1a1bb3a49c9458c2eb34c5d75f35479038d1bbfe59717a3885fc3d56e",
+        "8dc77d3dce9ba1f2672e813265a1b1a0c8594866ef38a4e978bf4f4451795465",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_read, network, shell."
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "import-memory",
+      "kind": "skill",
+      "sha256": "04fbbb3efb5b218de9df5d7f341bc8487312a26ee45ce5edf27d7d0717a7b3da",
+      "score": 40,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [
+        "7f4628556472f313b15747f5a17dac99756fa4970aae5e69c5fea3ff34828f0a",
+        "ea4c7fa3bc808c87612deb07588e3fb115698b6cd9c9c70718f7c2f225c7dd35"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "morning",
+      "kind": "skill",
+      "sha256": "663d639e5b8d122e0ff15cfa5ee7137b5190c82a6547e409457165d3b7f1e863",
+      "score": 0,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "pdf",
+      "kind": "skill",
+      "sha256": "2e55b77515e3323cb6ef10833fe2a4c1a86c55f23a9004b86e363812521b83f0",
+      "score": 7,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: file_read, file_write."
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "pptx",
+      "kind": "skill",
+      "sha256": "f6c5e9d2a3403e921db1d462953af4a9d116d0664ad6e1e1eb96ac6156874aae",
+      "score": 100,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "23b3d476caf63d859a2a3bade37548b7986b00b138b45df1b6a49782c4e2984b",
+        "277bc64e778b2010e0233c2fa1a2a70a99e6c52191b3082208b50cf7eb65300b",
+        "3ad0542410fb0749fe62c9b2b253ec002bd95413508c78d505ea76b121a0f81c",
+        "5281710ff6fb774d41d1c9553d0e1a8869da0e882336cb051e86744f3ec8ec46",
+        "8be62aeb7d7a6a3a3f813ca694ed8110ec9f4098cfa75eefbe4f02a442a2dcd0",
+        "9a5d828b39904fd6a93b4ab3bebdcb701d08fe364aeb4fad71561e665ba96d38",
+        "9e499c1ff35fcd6a56554a9e39509a6951e3611b22095e5e835052c86bbe9cf7",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env, file_read, file_write, network, shell.",
+        "c636428f0ba4abf12b869ba02d0870be84490743b3f02fd60b03b104fc39f227",
+        "da42bed49ba667f4edac8a3628fa28e5cc6bbc20fc757fb7d1ddbddd9a531ec0"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "skill-creator",
+      "kind": "skill",
+      "sha256": "107a3ea6f9d003c0ee01c38f2fbca568ef1b580e3be6db91d4b490508b7ed05b",
+      "score": 100,
+      "recommendation": "DO_NOT_INSTALL",
+      "signature": "none",
+      "accepted_findings": [
+        "18bb822f71209cb3a04d792499f0995d675d1c638e97c90968b496128c99c88d",
+        "21b29b57b89a5a3233f697b487f442cbfa19ad73da80ad74d8531f3d6c0dc384",
+        "43fad458c8cc12a6de8213626fa2ab2e581b08aa3a87518e8e9a5e976a1c45e9",
+        "723bfcf1e30bd4b40c86b4f88dfd521c8fb811c19f3ef77addc40e34c6bbba7d",
+        "7469d59a3aa154e17f0a85cf0c6f176b23132aeef25aa45bf1888c39844ebdba",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env, file_read, file_write, shell.",
+        "a3b2c30e52b72d9ed99fed84c020ce072453b04697f4f184c9268de970914edb",
+        "c6e3beee838afc7bbdbd77269d95a29fa94a0263d2d5a179385957a74b9c01e4",
+        "d7c650005993d06191f3c9a57eae01b96138b152af039b5b98680174c9a41275"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "startup-hook-skill",
+      "kind": "skill",
+      "sha256": "1728db367f0909244d351ba1e9769d3591e898128a30bd79c9b573db6610f1fd",
+      "score": 21,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [
+        "73b2fca037096741f110e90f0b69e75418589e32fe3ee88e67abd2a9656a160d"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    },
+    {
+      "name": "xlsx",
+      "kind": "skill",
+      "sha256": "a24dbee4c99694f8d935e9f1595a1899674b1520a8e0ce546b69113e4f6352c8",
+      "score": 42,
+      "recommendation": "CAUTION",
+      "signature": "none",
+      "accepted_findings": [
+        "032eb075a00612565ca693ce1d19af0285a07b9f4086a6f69c15ee6a22fbc8e8",
+        "23b3d476caf63d859a2a3bade37548b7986b00b138b45df1b6a49782c4e2984b",
+        "5281710ff6fb774d41d1c9553d0e1a8869da0e882336cb051e86744f3ec8ec46",
+        "8be62aeb7d7a6a3a3f813ca694ed8110ec9f4098cfa75eefbe4f02a442a2dcd0",
+        "99fbbd9772ed33c37a32a641648eb2db378bbff1e0d7d56d6ce72a7ca791382e",
+        "9e499c1ff35fcd6a56554a9e39509a6951e3611b22095e5e835052c86bbe9cf7",
+        "LP3:SKILL.md:Skill declares no tool scope ('permissions' or 'allowed-tools') but code capabilities were detected: env, file_read, file_write, network, shell.",
+        "c636428f0ba4abf12b869ba02d0870be84490743b3f02fd60b03b104fc39f227"
+      ],
+      "approved_on": "2026-10-22",
+      "note": "Baseline approved by the user in chat on 2026-10-22: installed before skill-guard existed. Claude checked every HIGH finding in the code (all false positives: warnings quoted as text, env passed to local LibreOffice/claude, rm of its own output file, runtime-only file references)."
+    }
+  ],
+  "policy": "docs/SKILL-SCAN.md"
+}
