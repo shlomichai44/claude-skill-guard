@@ -16,4 +16,7 @@ chmod +x "$HOME/.local/bin/skill-guard"
 python3 -I "$DIR/skill_guard.py" install-hooks
 python3 -I "$DIR/skill_guard.py" install-plugins || echo "skill-guard: some listed plugins were not installed"
 python3 -I "$DIR/skill_guard.py" install-notes || echo "skill-guard: notes were not written"
+# Scan what is installed now, so the results are saved with the environment
+# and the session-start check does not rescan them in every new session.
+python3 -I "$DIR/skill_guard.py" check > /dev/null || true
 echo "skill-guard installed from $DIR"

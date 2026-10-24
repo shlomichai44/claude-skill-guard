@@ -14,6 +14,7 @@
 2. מוסיפים לשדה **Setup script** את השורות האלה:
 
    ```bash
+   # skill-guard v3 (change the number so new sessions pick up updates)
    { if [ -d "$HOME/.skill-guard/.git" ]; then git -C "$HOME/.skill-guard" pull -q --ff-only
    else git clone -q --depth 1 https://github.com/shlomichai44/claude-skill-guard "$HOME/.skill-guard"; fi
    "$HOME/.skill-guard/install.sh"; } || echo "skill-guard setup failed; session continues without it"
@@ -21,6 +22,7 @@
 
 3. שומרים. מעכשיו כל סשן חדש מתקין את הכלים ואת ההוקים, ומושך את רשימת המאושרים העדכנית.
 
+- הסביבה שומרת את התוצאה של סקריפט ההתקנה ולא מריצה אותו שוב בכל סשן. לכן, אחרי שינוי בריפו הזה, מעלים את המספר בשורה הראשונה (v3, v4 וכן הלאה) ושומרים. השינוי גורם לסביבה להריץ את הסקריפט מחדש: היא מושכת את הגרסה האחרונה, מתקינה, וסורקת מראש, כך שהבדיקה בתחילת כל סשן לוקחת רק כמה שניות.
 - הסוגריים המסולסלים ו-`|| echo` בסוף חשובים. בלעדיהם, תקלה בהתקנה מונעת מכל סשן חדש לעלות.
 - הריפו צריך להיות ציבורי. סקריפט ההתקנה רץ עם גישה רק לריפו שנבחר לסשן, ולכן ריפו פרטי אחר לא ישוכפל. אין בריפו הזה סודות.
 
