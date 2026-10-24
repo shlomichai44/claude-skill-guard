@@ -30,6 +30,17 @@
       "scanned_on": "2026-10-22",
       "scan": "9 PASS; remotion-best-practices, remotion-maps and remotion-markup BLOCKED, reviewed as false positives and approved by the user",
       "note": "Official Remotion skills for making videos with React. Installed at the user's request."
+    },
+    {
+      "source": "vercel-labs/skills",
+      "commit": "a80e4c9d12d607631249d4d7d059f835d4b2f13a",
+      "path": "skills",
+      "names": [
+        "find-skills"
+      ],
+      "scanned_on": "2026-10-24",
+      "scan": "PASS: SkillSpector score 12 SAFE; instructions only",
+      "note": "Searches the open skills directory (skills.sh) and installs skills with npx skills. Search needs skills.sh in the environment's allowed domains. Installed at the user's request."
     }
   ]
 }

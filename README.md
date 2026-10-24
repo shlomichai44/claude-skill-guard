@@ -77,6 +77,7 @@
 כרגע ברשימה:
 - **ffmpeg-llm** (של Rendi): כותב פקודות FFmpeg לפי בקשה במילים.
 - **Remotion**, 12 הסקילים הרשמיים (`remotion-dev/skills@6c67adc`): יצירת סרטונים מקוד React. שלושה מהם (best-practices, ‏maps, ‏markup) קיבלו BLOCKED, נבדקו כהתרעות שווא ואושרו על ידך.
+- **find-skills** של Vercel (`vercel-labs/skills@a80e4c9`): מחפש סקילים במאגר הפתוח skills.sh ומתקין אותם עם `npx skills`. עבר סריקה (PASS). החיפוש עובד רק אם `skills.sh` נמצא ברשימת האתרים המותרים של הסביבה.
 
 ## הערות לכל סשן
 
